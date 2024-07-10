@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import CreateArea from "./CreateArea";
 import Note from "./Note";
 import EditModal from "./EditModal";
+const apiUrl = process.env.REACT_APP_API_URL;
 
 function App() {
   const [notes, setNotes] = useState([]);
@@ -16,7 +17,7 @@ function App() {
 
   const fetchNotes = useCallback(async () => {
     try {
-      const response = await fetch("http://localhost:5000/notes");
+      const response = await fetch('${apiUrl}/notes');
       const jsonData = await response.json();
       setNotes(jsonData);
     } catch (err) {
@@ -30,7 +31,7 @@ function App() {
 
   const deleteNote = async (note_id) => {
     try {
-      await fetch(`http://localhost:5000/notes/${note_id}`, {
+      await fetch(`${apiUrl}/notes/${note_id}`, {
         method: "DELETE",
       });
       setNotes((prevNotes) => prevNotes.filter((noteItem) => noteItem.note_id !== note_id));
@@ -41,7 +42,7 @@ function App() {
 
   const editNote = async (note_id, updatedNote) => {
     try {
-      const response = await fetch(`http://localhost:5000/notes/${note_id}`, {
+      const response = await fetch(`${apiUrl}/notes/${note_id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

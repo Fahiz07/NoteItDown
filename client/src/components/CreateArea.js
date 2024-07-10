@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import Fab from "@mui/material/Fab";
 import Zoom from "@mui/material/Zoom";
+const apiUrl = process.env.REACT_APP_API_URL;
 
 function CreateArea({ fetchNotes }) {
   const [isExpanded, setExpanded] = useState(false);
@@ -21,7 +22,7 @@ function CreateArea({ fetchNotes }) {
   const submitNote = async (e) => {
     e.preventDefault();
     try {
-      await fetch("http://localhost:5000/notes", {
+      await fetch('${apiUrl}/notes', {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(note),
