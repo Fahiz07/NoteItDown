@@ -3,7 +3,6 @@ import AddIcon from "@mui/icons-material/Add";
 import Fab from "@mui/material/Fab";
 import Zoom from "@mui/material/Zoom";
 
-
 function CreateArea({ fetchNotes }) {
   const apiUrl = process.env.REACT_APP_API_URL;
   const [isExpanded, setExpanded] = useState(false);
@@ -23,18 +22,24 @@ function CreateArea({ fetchNotes }) {
   const submitNote = async (e) => {
     e.preventDefault();
     try {
-      await fetch('${apiUrl}/notes', {
+      const response = await fetch(`${apiUrl}/notes`, {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(note),
       });
-      setNote({
-        note_title: "",
-        note_content: "",
-      });
-      fetchNotes();
+      if (response.ok) {
+        setNote({
+          note_title: "",
+          note_content: "",
+        });
+        fetchNotes(); // Refresh notes after successfully adding a new note
+      } else {
+        console.error("Failed to add note:", response.statusText);
+      }
     } catch (err) {
-      console.error(err.message);
+      console.error("Error adding note:", err.message);
     }
   };
 

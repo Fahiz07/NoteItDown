@@ -5,7 +5,6 @@ import CreateArea from "./CreateArea";
 import Note from "./Note";
 import EditModal from "./EditModal";
 
-
 function App() {
   const apiUrl = process.env.REACT_APP_API_URL;
   const [notes, setNotes] = useState([]);
@@ -18,13 +17,13 @@ function App() {
 
   const fetchNotes = useCallback(async () => {
     try {
-      const response = await fetch('${apiUrl}/notes');
+      const response = await fetch(`${apiUrl}/notes`);
       const jsonData = await response.json();
       setNotes(jsonData);
     } catch (err) {
-      console.error(err.message);
+      console.error("Error fetching notes:", err.message);
     }
-  }, []);
+  }, [apiUrl]);
 
   useEffect(() => {
     fetchNotes();
@@ -37,7 +36,7 @@ function App() {
       });
       setNotes((prevNotes) => prevNotes.filter((noteItem) => noteItem.note_id !== note_id));
     } catch (err) {
-      console.error(err.message);
+      console.error("Failed to delete note:", err.message);
     }
   };
 
@@ -61,7 +60,7 @@ function App() {
         console.error("Failed to update note.");
       }
     } catch (err) {
-      console.error(err.message);
+      console.error("Error updating note:", err.message);
     }
   };
 
@@ -75,19 +74,19 @@ function App() {
   };
 
   return (
-    <div >
+    <div>
       <Header />
-        <CreateArea fetchNotes={fetchNotes} />
-        {notes.map((noteItem) => (
-          <Note
-            key={noteItem.note_id}
-            note_id={noteItem.note_id}
-            note_title={noteItem.note_title}
-            note_content={noteItem.note_content}
-            onDelete={deleteNote}
-            onEdit={handleEditClick}
-          />
-        ))}
+      <CreateArea fetchNotes={fetchNotes} />
+      {notes.map((noteItem) => (
+        <Note
+          key={noteItem.note_id}
+          note_id={noteItem.note_id}
+          note_title={noteItem.note_title}
+          note_content={noteItem.note_content}
+          onDelete={deleteNote}
+          onEdit={handleEditClick}
+        />
+      ))}
       <Footer />
       <EditModal
         show={showModal}
