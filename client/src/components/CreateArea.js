@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import Fab from "@mui/material/Fab";
 import Zoom from "@mui/material/Zoom";
-const apiUrl = process.env.REACT_APP_API_URL;
+
 
 function CreateArea({ fetchNotes }) {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [isExpanded, setExpanded] = useState(false);
   const [note, setNote] = useState({
     note_title: "",

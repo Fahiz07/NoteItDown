@@ -4,9 +4,10 @@ import Footer from "./Footer";
 import CreateArea from "./CreateArea";
 import Note from "./Note";
 import EditModal from "./EditModal";
-const apiUrl = process.env.REACT_APP_API_URL;
+
 
 function App() {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [notes, setNotes] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [currentNote, setCurrentNote] = useState({
