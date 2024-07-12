@@ -637,9 +637,4 @@ package.json (client)
   }
 }
 
-.env
-DATABASE_USER=postgres
-DATABASE_PASSWORD=database
-DATABASE_HOST=localhost
-DATABASE_PORT=5432
-DATABASE_NAME=NoteItDown
+

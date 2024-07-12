@@ -16,11 +16,10 @@ app.use(cors({
 app.use(express.json());
 
 const pool = new Pool({
-  user: process.env.DATABASE_USER,
-  host: process.env.DATABASE_HOST,
-  database: process.env.DATABASE_NAME,
-  password: process.env.DATABASE_PASSWORD,
-  port: process.env.DATABASE_PORT,
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false, // Only if you are using self-signed certificates on Render
+  },
 });
 
 app.post("/notes", async (req, res) => {
